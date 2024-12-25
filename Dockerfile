@@ -1,7 +1,11 @@
-FROM tiangolo/uwsgi-nginx-flask:python3.7-alpine3.7
-
-COPY ./app.py /app/main.py
-COPY ./*.txt /app/
+FROM python:3.12-slim
 
 WORKDIR /app
-RUN pip install -r requirements.txt
+
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY ./app.py ./main.py
+COPY ./*.txt ./
+
+CMD ["python", "main.py"]
